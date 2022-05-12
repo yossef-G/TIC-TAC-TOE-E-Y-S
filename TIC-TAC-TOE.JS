@@ -1,4 +1,3 @@
-// const bord = [["TL","TM","TR"],["ML","MM","MR"],["BR","BM","BL"]];
 const Bord = [
     [{
         id: "00",
