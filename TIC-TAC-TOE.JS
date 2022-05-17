@@ -35,16 +35,19 @@ let players = [{
         name: "",
         moves: 0,
         shape: "X",
-        play: true
+        play: true,
+        class: 'cross'
     },
     {
         name: "",
         moves: 0,
         shape: "O",
-        play: false
+        play: false,
+        class: 'circle'
     }
 ];
-let playerP = player();
+let playerP = players[0];
+    turn = 0;
 
 function player() {
     if (players[0].play) {
@@ -58,6 +61,28 @@ function player() {
     }
 }
 
+function makeAmove(e) {
+    const shape = document.createElement('div');
+    shape.className = playerP.class
+    e.appendChild(shape)
+    // e.className = playerP.class;
+    Bord[e.id[0]][e.id[1]].shape = playerP.shape
+}
+function rowCheck(e){
+    let check = Bord[e.id[0]];
+    if (check[0].shape== check[1].shape && check[0].shape ==check[2].shape)
+    return console.log('works')
+}
+
+function colCheck(e){
+    if (Bord[0][e.id[1]].shape == Bord[1][e.id[1]].shape && Bord[0][e.id[1]].shape == Bord[2][e.id[1]].shape)
+    return console.log('col works')
+}
+
+function degCheck(){
+
+}
+
 for (i in Bord) {
     let row = document.createElement('div')
     row.className = 'row'
@@ -65,20 +90,19 @@ for (i in Bord) {
         let element = document.createElement('div');
         element.id = i + j;
         element.className = 'col-md'
-        element.innerText = j;
+        element.innerText = '';
         row.appendChild(element);
     }
     borad.appendChild(row)
 }
 
-function makeAmove(e) {
-    e.innerHTML = playerP.shape;
-    Bord[e.id[0]][e.id[1]].shape = playerP.shape
-}
-
 borad.addEventListener('click', (e) => {
-    if (e.target.className == 'row' || e.target.id == "borad") {} else {
-        playerP = player()
+    if(e.target.id == (Bord[e.target.id[0]][e.target.id[1]]).id && (Bord[e.target.id[0]][e.target.id[1]]).shape == ''){
         makeAmove(e.target);
+        turn++
+        rowCheck(e.target)
+        colCheck(e.target)
+        // degCheck()
+        playerP = player()
     }
 })

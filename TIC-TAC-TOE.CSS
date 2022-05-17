@@ -1,14 +1,43 @@
 #borad{
-    border: 1px solid black;
+    border:  solid black;
 }
 .row{
+    justify-content: center;
     padding: 0.5rem;
 }
 .col-md{
     border: 1px solid brown;
-    height: 50px;
-    width: 50px;
+    height: 6rem;
+    max-width: 6rem;
     margin: 0.5rem;
     background-color: aqua;
     text-align: center;
+}
+
+.circle {
+    height: 70px;
+    width: 70px;
+    background-color: transparent;
+    border-radius: 100%;
+    border: 6px solid black;
+    margin-top: 0.7rem;
+  }
+
+.cross {
+    background: #ff0000;
+    height: 60px;
+    position: relative;
+    width: 6px;
+    transform: rotateZ(45deg);
+    margin-top: 1rem;
+    margin-left: 1.9rem;
+}
+.cross::after {
+      background: #ff0000;
+      content: '';
+      height: 5px;
+      left: -25px;
+      position: absolute;
+      top: 26px;
+      width: 60px;
 }
