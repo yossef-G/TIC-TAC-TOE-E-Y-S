@@ -61,13 +61,20 @@ function player() {
     }
 }
 
+let count = 0;
 function makeAmove(e) {
+    start()
     const shape = document.createElement('div');
     shape.className = playerP.class
     e.appendChild(shape)
     // e.className = playerP.class;
     Bord[e.id[0]][e.id[1]].shape = playerP.shape
+    count++
+    if (count == 9){
+        stop()
+    }
 }
+
 function rowCheck(e){
     let check = Bord[e.id[0]];
     if (check[0].shape== check[1].shape && check[0].shape ==check[2].shape)
@@ -77,10 +84,6 @@ function rowCheck(e){
 function colCheck(e){
     if (Bord[0][e.id[1]].shape == Bord[1][e.id[1]].shape && Bord[0][e.id[1]].shape == Bord[2][e.id[1]].shape)
     return console.log('col works')
-}
-
-function degCheck(){
-
 }
 
 for (i in Bord) {
@@ -104,5 +107,43 @@ borad.addEventListener('click', (e) => {
         colCheck(e.target)
         // degCheck()
         playerP = player()
+        
     }
 })
+
+
+// ##############################################
+
+let stopwatchInterval ;
+const deltaInMs = 100;
+let timeInMs = 0;
+
+
+function start() {
+    if(stopwatchInterval){
+        return;
+    }
+    stopwatchInterval =setInterval( function () {
+        timeInMs = timeInMs + 100 ;
+        document.getElementById('watch').innerHTML = stopwatchToString();
+    },deltaInMs);
+}
+
+function stop() {
+    clearInterval(stopwatchInterval);
+    stopwatchInterval = undefined ;
+}
+
+// function reset() {
+//     timeInMs = 0 ;
+//     document.getElementById('watch').innerHTML = stopwatchToString();
+// }
+
+function stopwatchToString() {
+    const milliseconds = (timeInMs / 100) % 10;
+    const second = Math.floor((timeInMs / 1000) % 60);
+    const minutes = Math.floor(timeInMs / 1000 / 60);
+
+    return `${minutes} : ${second} : ${milliseconds} `
+
+}
