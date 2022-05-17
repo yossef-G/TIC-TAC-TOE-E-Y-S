@@ -23,7 +23,7 @@ let lastID = [];
     circle = [];
 
 function input() {
-    numOfCol = (document.getElementById('input')).value;
+    numOfCol = Number((document.getElementById('input')).value);
     Bord=[]
     for(i=0;i < numOfCol; i++){
         let row = []
@@ -72,10 +72,9 @@ function makeAmove(e) {
     // e.className = playerP.class;
     Bord[e.id[0]][e.id[1]].shape = playerP.shape
     count++
-    if (count == numOfCol*numOfCol){
+    if (count == (numOfCol*numOfCol)){
         stop()
     }
-
 
     shape.className = playerP.class;
     e.appendChild(shape);
