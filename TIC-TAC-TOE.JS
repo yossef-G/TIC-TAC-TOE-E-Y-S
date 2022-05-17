@@ -1,35 +1,5 @@
-const Bord = [
-    [{
-        id: "00",
-        shape: ''
-    }, {
-        id: "01",
-        shape: ''
-    }, {
-        id: "02",
-        shape: ''
-    }],
-    [{
-        id: "10",
-        shape: ''
-    }, {
-        id: "11",
-        shape: ''
-    }, {
-        id: "12",
-        shape: ''
-    }],
-    [{
-        id: "20",
-        shape: ''
-    }, {
-        id: "21",
-        shape: ''
-    }, {
-        id: "22",
-        shape: ''
-    }]
-];
+let Bord = []
+    numOfCol= 0;
 let borad = document.getElementById('borad');
 let players = [{
         name: "",
@@ -47,7 +17,39 @@ let players = [{
     }
 ];
 let playerP = players[0];
+let lastID = [];
     turn = 0;
+    cross = [];
+    circle = [];
+
+function input() {
+    numOfCol = (document.getElementById('input')).value;
+    Bord=[]
+    for(i=0;i < numOfCol; i++){
+        let row = []
+        for(j=0; j < numOfCol; j++){
+            let object = {
+                id: `${i}${j}`,
+                shape: ''
+            }
+            row.push(object)
+        }
+        Bord.push(row)
+    }
+    clean()
+    for (i in Bord) {
+        let row = document.createElement('div')
+        row.className = 'row'
+        for (j in Bord[i]) {
+            let element = document.createElement('div');
+            element.id = i + j;
+            element.className = 'col-md'
+            element.innerText = '';
+            row.appendChild(element);
+        }
+        borad.appendChild(row)
+    }
+}
 
 function player() {
     if (players[0].play) {
@@ -63,11 +65,49 @@ function player() {
 
 function makeAmove(e) {
     const shape = document.createElement('div');
-    shape.className = playerP.class
-    e.appendChild(shape)
-    // e.className = playerP.class;
-    Bord[e.id[0]][e.id[1]].shape = playerP.shape
+    shape.className = playerP.class;
+    e.appendChild(shape);
+    Bord[e.id[0]][e.id[1]].shape = playerP.shape;
+    if(playerP.shape == "X"){
+        cross.push({
+            i: e.id[0],
+            j: e.id[1]
+        })
+    }else{
+        circle.push({
+            i: e.id[0],
+            j: e.id[1]
+        })
+    }
+    lastID.push(e.id);
 }
+
+function clean() {
+    while(borad.firstChild){
+        borad.removeChild(borad.firstChild)
+    }
+}
+
+function undo() {
+    let last = lastID.pop()
+    let undo = document.getElementById(last);
+    undo.removeChild(undo.firstChild);
+    Bord[last[0]][last[1]].shape = '';
+    playerP= player()
+}
+
+function compare( a, b )
+  {
+  if ( a.i < b.i){
+    return -1;
+  }
+  if ( a.i > b.i){
+    return 1;
+  }
+  return 0;
+}
+
+
 function rowCheck(e){
     let check = Bord[e.id[0]];
     if (check[0].shape== check[1].shape && check[0].shape ==check[2].shape)
@@ -83,18 +123,6 @@ function degCheck(){
 
 }
 
-for (i in Bord) {
-    let row = document.createElement('div')
-    row.className = 'row'
-    for (j in Bord[i]) {
-        let element = document.createElement('div');
-        element.id = i + j;
-        element.className = 'col-md'
-        element.innerText = '';
-        row.appendChild(element);
-    }
-    borad.appendChild(row)
-}
 
 borad.addEventListener('click', (e) => {
     if(e.target.id == (Bord[e.target.id[0]][e.target.id[1]]).id && (Bord[e.target.id[0]][e.target.id[1]]).shape == ''){
