@@ -1,12 +1,19 @@
 #borad{
+<<<<<<< HEAD
     border:  solid black;
 }
 .row{
     justify-content: center;
+=======
+    border: 1px solid black;
+}
+.row{
+>>>>>>> 15695ed9142dd3198f57612f0dbe05320d754b66
     padding: 0.5rem;
 }
 .col-md{
     border: 1px solid brown;
+<<<<<<< HEAD
     height: 6rem;
     max-width: 6rem;
     margin: 0.5rem;
@@ -40,4 +47,11 @@
       position: absolute;
       top: 26px;
       width: 60px;
+=======
+    height: 50px;
+    width: 50px;
+    margin: 0.5rem;
+    background-color: aqua;
+    text-align: center;
+>>>>>>> 15695ed9142dd3198f57612f0dbe05320d754b66
 }
