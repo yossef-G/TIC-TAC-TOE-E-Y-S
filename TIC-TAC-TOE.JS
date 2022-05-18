@@ -70,6 +70,10 @@ function makeAmove(e) {
     const shape = document.createElement('div');
     shape.className = playerP.class
     e.appendChild(shape)
+<<<<<<< HEAD
+=======
+    // e.className = playerP.class;
+>>>>>>> dcd1fd843402e5f80d1c403abd2494a1935150c5
     Bord[e.id[0]][e.id[1]].shape = playerP.shape
     count++
     if (count == (numOfCol*numOfCol)){
