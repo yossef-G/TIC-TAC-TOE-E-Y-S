@@ -9,18 +9,20 @@
     <link rel="stylesheet" href="TIC-TAC-TOE.CSS">
 </head>
 <body>
+    <div id="top">
+        <label class="m-3" id="txt">number of col </label><input id="input" type="number"/>
+        <button class="btn m-2" onclick="input()">start</button>
+        <button class="btn m-2" onClick="window.location.reload()">reset</button>
+        <button class="btn m-2" onclick="undo()">undo</button>
+        <button class="btn m-2" onclick="save()">save game</button>
+        <button class="btn m-2" onclick="openSave()">open saved game</button>
+        <button class="btn m-2" >record</button>
+    </div>
     <div id="app-container">
-        <div id="watch" style="text-align:center ; font-size: larger; color: brown;"> 0 : 0 : 0 </div>
+        <div id="watch" style="text-align:center"> 0 : 0 : 0 </div>
         <div id="controls"> 
         </div>
     </div>
-    <label class="m-3">number of col </label><input id="input" type="number"/>
-    <button class="m-2" onclick="input()">start</button>
-    <button class="m-2" onClick="window.location.reload()">reset</button>
-    <button class="m-2" onclick="undo()">undo</button>
-    <button class="m-2" onclick="save()">save game</button>
-    <button class="m-2" onclick="openSave()">open saved game</button>
-    <button class="m-2">record</button>
     <div id="borad" class="container"></div>
 
 <script src="TIC-TAC-TOE.JS"></script>

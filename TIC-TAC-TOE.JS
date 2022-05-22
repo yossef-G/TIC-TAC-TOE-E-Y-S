@@ -70,10 +70,6 @@ function makeAmove(e) {
     const shape = document.createElement('div');
     shape.className = playerP.class
     e.appendChild(shape)
-<<<<<<< HEAD
-=======
-    // e.className = playerP.class;
->>>>>>> dcd1fd843402e5f80d1c403abd2494a1935150c5
     Bord[e.id[0]][e.id[1]].shape = playerP.shape
     count++
     if (count == (numOfCol*numOfCol)){
@@ -109,6 +105,11 @@ function undo() {
     undo.removeChild(undo.firstChild);
     Bord[last[0]][last[1]].shape = '';
     playerP= player()
+    if(playerP.shape == "X"){
+        cross = cross.filter((v,index,o)=> (o[index].i != last[0] || o[index].j != last[1]))
+    }else{
+        circle = circle.filter((v,index,o)=> (o[index].i != last[0] || o[index].j != last[1]))
+    }
 }
 
 function save(){

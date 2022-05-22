@@ -1,22 +1,65 @@
-#borad{
-    border:  solid black;
+body{
+    background-image: url(https://i.pinimg.com/originals/37/d5/1c/37d51c1417f7ad37972ac44257b312c4.jpg);
+}
+#top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: fantasy;
+    font-size: 3vh;
+    border: 0.5vh double black;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+#txt{
+    font-size: 3.8vh;
+    text-shadow: -0.1rem 0.1rem #302e2e85;
+}
+#input{
+    background-color: #d7d7e9;
+    border-radius: 0.6rem;
+    max-width: 5rem;
+    text-align: center;
+}
+#watch{
+    font-size: xxx-large;
+    color: #2c30bf;
+    text-shadow: -0.1rem 0 0.3rem black;
+}
+.btn{
+    border: 1.5px solid black;
+    border-radius: 0.6rem;
+    color: #00a1ff;
+    background-color: brown;
+    box-shadow: -0.07rem 0.04rem 0.2rem 0.05rem #000000c2;
+}
+.btn:hover{
+    background-color: #00a1ff;
+    box-shadow: -0.07rem 0.04rem 0.2rem 0.05rem #000000c2;
+}
+.btn:active{
+    background-color: #00a1ff;
+    box-shadow: none;
+    transform: scale(0.9);
 }
 .row{
     justify-content: center;
 }
 .col-md{
-    border: 1px solid brown;
-    height: 6rem;
-    max-width: 6rem;
-    margin: 0.4rem;
+    border: 2px solid rgb(27 30 48);
+    height: 7rem;
+    max-width: 7rem;
+    margin: 0.5rem;
     background-color: rgb(0, 0, 0);
+    box-shadow: 0 0 0.6rem 0 rgb(81 79 205 / 84%);
     text-align: center;
     cursor: pointer;
 }
 
 .circle {
-    height: 5.5rem;
-    width: 5.5rem;
+    height: 6.5rem;
+    width: 6.5rem;
     background-color: rgb(243 0 95);
     border: 2px solid rgb(100, 227, 255);
     border-radius: 80%;
@@ -26,8 +69,8 @@
   }
 .circle::after{
     content: '';
-    height: 4rem;
-    width: 4rem;
+    height: 5rem;
+    width: 5rem;
     background-color: rgb(0, 0, 0);
     border: 2px solid rgb(100, 227, 255);
     border-radius: 50%;
@@ -38,23 +81,23 @@
 
 .cross {
     background: #2600ff;
-    height: 7.2rem;
-    width: 12px;
+    height: 8.3rem;
+    width: 15px;
     position: relative;
-    left: 2rem;
-    top: -0.7rem;
+    left: 2.2rem;
+    top: -0.8rem;
     transform: rotateZ(45deg);
     border-radius: 7px;
-    border: 2px solid rgb(154, 0, 165)
+    border: 2px solid rgb(154, 0, 165);
 }
 .cross::after {
     background: #0d86ff;
     content: '';
-    height: 12px;
-    width: 7.2rem;
+    height: 15px;
+    width: 8.3rem;
     position: absolute;
-    left: -3.3rem;
-    top: 3.28rem;
+    left: -3.8rem;
+    top: 3.6rem;
     border-radius: 7px;
     border: 2px solid rgb(154, 0, 165);
 }
