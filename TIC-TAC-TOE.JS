@@ -1,6 +1,5 @@
 let Bord = [];
 let numOfCol= 0;
-let saved = []
 let borad = document.getElementById('borad');
 let players = [{
         name: "",
@@ -113,47 +112,89 @@ function undo() {
 }
 
 function save(){
-    saved = [];
+    let saved = [];
     let save = document.querySelectorAll('.row');
     for(i=0; i< save.length;i++){
         saved.push(save[i].outerHTML);
     }
-    let JasonBord = JSON.stringify(Bord);
-    let JsonPlayer = JSON.stringify(playerP);
-    let JsonPlayers = JSON.stringify(players);
-    let JsonIDs = JSON.stringify(lastID);
-    let JsonX = JSON.stringify(cross);
-    let JsonO = JSON.stringify(circle);
-    localStorage.setItem("Board", JasonBord);
-    localStorage.setItem("Player", JsonPlayer);
-    localStorage.setItem("Players", JsonPlayers);
-    localStorage.setItem("IDs", JsonIDs);
-    localStorage.setItem("Cross", JsonX);
-    localStorage.setItem("Circle", JsonO);
+    localStorage.setItem("Board", JSON.stringify(Bord));
+    localStorage.setItem("Player", JSON.stringify(playerP));
+    localStorage.setItem("Players", JSON.stringify(players));
+    localStorage.setItem("IDs", JSON.stringify(lastID));
+    localStorage.setItem("Cross", JSON.stringify(cross));
+    localStorage.setItem("Circle", JSON.stringify(circle));
+    localStorage.setItem("Saved", JSON.stringify(saved));
 }
 
 function openSave() {
     clean();
+    let saved = JSON.parse(localStorage.getItem('Saved'))
     for(i in saved){
     let child = document.createElement('div');
     borad.appendChild(child);
     child.outerHTML = saved[i]; 
     }
-    let tempBord = localStorage.getItem("Board");
-    let playing = localStorage.getItem("Player");
-    let rightPlay = localStorage.getItem("Players");
-    let IDs = localStorage.getItem("IDs");
-    let Jcross = localStorage.getItem("Cross");
-    let Jcircle = localStorage.getItem("Circle");
-    Bord = JSON.parse(tempBord);
-    playerP = JSON.parse(playing);
-    players = JSON.parse(rightPlay);
-    lastID = JSON.parse(IDs);
-    cross = JSON.parse(Jcross);
-    circle = JSON.parse(Jcircle);
+    Bord = JSON.parse(localStorage.getItem("Board"));
+    playerP = JSON.parse(localStorage.getItem("Player"));
+    players = JSON.parse(localStorage.getItem("Players"));
+    lastID = JSON.parse(localStorage.getItem("IDs"));
+    cross = JSON.parse(localStorage.getItem("Cross"));
+    circle = JSON.parse(localStorage.getItem("Circle"));
 }
 
-function compare( a, b )
+function checkGame(arr, lengthGame){
+    let arr1 = [],iArrNe=[];
+    arr1 = [...arr]
+    arr1.sort(compareI)
+    console.log(arr1);
+    while((arr1.length>=lengthGame)){
+        if((arr1[0].i==0)){
+            iArrNe[0]= arr1[0];
+            while(arr1.find((v)=>Number(v.i)==Number(iArrNe[iArrNe.length-1].i)+1)){
+                a = arr1.find((v)=>Number(v.i)==Number(iArrNe[iArrNe.length-1].i)+1);
+                iArrNe.push(a)
+                console.log(a);
+            }
+            if (iArrNe.length==lengthGame){
+                for(t=0;t<iArrNe.length;t++){
+                    bChechEJ = arr1.filter((v)=> v.j==arr1[t].j)//בודק את הגיי של אינדקס 0 ובודק כמה פעמים הוא חוזר על עצמו
+                    console.log(bChechEJ);
+                    if(bChechEJ.length == lengthGame){
+                        return true
+                    }
+                }
+                slantL = arr1.filter((v=> v.i==v.j))
+                if(slantL.length==lengthGame){return true}
+                slantR = arr1.filter((v)=> Number(v.i)+Number(v.j)==lengthGame-1)
+                if(slantR.length==lengthGame){return true}  
+            }
+            return chechRow(arr1,lengthGame,iArrNe);}
+        else{return chechRow(arr1,lengthGame,iArrNe);}    
+        }
+    return false;    
+    }
+
+function chechRow (arr, lengthGame,inEquals){
+    arr1 = [...arr]
+    arr1.sort(compareI)
+    console.log(arr1);
+    if(inEquals == 0){
+        inEquals[0]= arr1[0];
+        while(arr1.find((v)=>Number(v.i)==Number(inEquals[inEquals.length-1].i)+1)){
+            a = arr1.find((v)=>Number(v.i)==Number(inEquals[inEquals.length-1].i)+1);
+            inEquals.push(a)
+            console.log(a);
+        }
+    }
+    for(t=0;t<inEquals.length;t++){
+        bChechEi = arr1.filter((v)=> v.i==inEquals[t].i)
+        if(bChechEi.length == lengthGame){
+            return true;
+        }
+    }
+    return false;
+}
+function compareI( a, b )
   {
   if ( a.i < b.i){
     return -1;
@@ -164,31 +205,16 @@ function compare( a, b )
   return 0;
 }
 
-function rowCheck(e){
-    let check = Bord[e.id[0]];
-    if (check[0].shape== check[1].shape && check[0].shape ==check[2].shape)
-    return console.log('works')
-}
-
-function colCheck(e){
-    if (Bord[0][e.id[1]].shape == Bord[1][e.id[1]].shape && Bord[0][e.id[1]].shape == Bord[2][e.id[1]].shape)
-    return console.log('col works')
-}
-
-function degCheck(){
-
-}
-
-
 borad.addEventListener('click', (e) => {
     if(e.target.id == (Bord[e.target.id[0]][e.target.id[1]]).id && (Bord[e.target.id[0]][e.target.id[1]]).shape == ''){
         makeAmove(e.target);
         turn++
-        rowCheck(e.target)
-        colCheck(e.target)
-        // degCheck()
+        if(playerP.shape == "X"){
+            console.log(checkGame(cross, numOfCol))
+        }else{
+          console.log(  checkGame(circle, numOfCol))
+        }
         playerP = player()
-        
     }
 })
 
@@ -214,11 +240,6 @@ function stop() {
     clearInterval(stopwatchInterval);
     stopwatchInterval = undefined ;
 }
-
-// function reset() {
-//     timeInMs = 0 ;
-//     document.getElementById('watch').innerHTML = stopwatchToString();
-// }
 
 function stopwatchToString() {
     const milliseconds = (timeInMs / 100) % 10;
