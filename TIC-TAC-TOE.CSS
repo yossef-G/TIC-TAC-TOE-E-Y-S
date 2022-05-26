@@ -101,3 +101,27 @@ body{
     border-radius: 7px;
     border: 2px solid rgb(154, 0, 165);
 }
+
+.grayback{
+    position: absolute;
+    display: grid;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(24, 24, 24, 0.616);
+    justify-content: center;
+    align-content: center;
+}
+
+.winner{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(74 211 35);
+    width: 60vw;
+    height: 35vh;
+    box-shadow: 0 0 5rem 0.4rem #383333;
+    border-radius: 2rem;
+    font-size: x-large;
+}
