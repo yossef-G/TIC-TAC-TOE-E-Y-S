@@ -27,6 +27,23 @@ body{
     color: #2c30bf;
     text-shadow: -0.1rem 0 0.3rem black;
 }
+#bottom{
+    display: flex;
+}
+#pl2S{
+    margin-right: 1rem; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    height: 1rem;
+}
+#pl1S{
+    margin-left: 1rem;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    height: 1rem;
+}
 .btn{
     border: 1.5px solid black;
     border-radius: 0.6rem;
