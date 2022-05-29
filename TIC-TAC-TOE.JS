@@ -30,7 +30,7 @@ let playerP = game.players[0];
 function input() {
     stop()
     clean()
-    document.getElementById("pl1").style = 'box-shadow: 0 0 0.6rem 0 rgba(247, 255, 5, 0.84);'
+    document.getElementById("pl1").style = 'box-shadow: 0 0 1rem 5px rgb(0 255 31);'
     document.getElementById("pl2").style = 'box-shadow: none; padding-left: 0.7rem;'
     game.numOfCol = Number((document.getElementById('input')).value);
     game.Borad=[]
@@ -74,12 +74,12 @@ function player() {
         game.players[0].play = false;
         game.players[1].play = true;
         document.getElementById("pl1").style = 'box-shadow: none;'
-        document.getElementById("pl2").style = 'box-shadow: 0 0 0.6rem 0 rgba(247, 255, 5, 0.84); padding-left: 0.7rem;'
+        document.getElementById("pl2").style = 'box-shadow: 0 0 1rem 5px rgb(0 255 31); padding-left: 0.7rem;'
         return game.players[1]
     } else {
         game.players[0].play = true;
         game.players[1].play = false;
-        document.getElementById("pl1").style = 'box-shadow: 0 0 0.6rem 0 rgba(247, 255, 5, 0.84);'
+        document.getElementById("pl1").style = 'box-shadow: 0 0 1rem 5px rgb(0 255 31);'
         document.getElementById("pl2").style = 'box-shadow: none; padding-left: 0.7rem;'
         return game.players[0]
     }
@@ -221,9 +221,9 @@ function win(){
     elementx.className = 'winner'
     elementx.innerText = `${playerP.name} wins!`
     element.appendChild(elementx)
-    borad.appendChild(element)
+    document.getElementById('bottom').appendChild(element)
     element.addEventListener('click', ()=>{
-    borad.removeChild(element)
+    document.getElementById('bottom').removeChild(element)
 })
 }
 
