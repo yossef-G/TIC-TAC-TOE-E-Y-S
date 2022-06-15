@@ -20,7 +20,12 @@ let game = {
     turn: 1,
     cross: [],
     circle: [],
-    timeInMs: 0
+    timeInMs: 0,
+}
+let RECORD ={
+    recordTime: 99999999,
+    recordName: '',
+    recordMoves: 0
 }
 let stopwatchInterval ;
 const deltaInMs = 100;
@@ -30,6 +35,9 @@ let playerP = game.players[0];
 function input() {
     stop()
     clean()
+    if(localStorage.getItem('record')){
+    RECORD = JSON.parse(localStorage.getItem("record"));
+    }
     document.getElementById("pl1").style = 'box-shadow: 0 0 1rem 5px rgb(0 255 31);'
     document.getElementById("pl2").style = 'box-shadow: none; padding-left: 0.7rem;'
     game.numOfCol = Number((document.getElementById('input')).value);
@@ -83,6 +91,13 @@ function player() {
         document.getElementById("pl2").style = 'box-shadow: none; padding-left: 0.7rem;'
         return game.players[0]
     }
+}
+
+function record() {
+    alert(`the record is: \n
+    time- ${stopwatchToString(RECORD.recordTime)}\n
+    player- ${RECORD.recordName}\n
+    moves- ${RECORD.recordMoves}`)
 }
 
 function makeAmove(e) {
@@ -215,6 +230,12 @@ function compareI( a, b )
 }
 
 function win(){
+    if(game.timeInMs < RECORD.recordTime){
+        RECORD.recordTime = game.timeInMs;
+        RECORD.recordName = playerP.name;
+        RECORD.recordMoves = game.turn;
+        localStorage.setItem('record',JSON.stringify(RECORD))
+    }
     let element = document.createElement("div")
     element.className = 'grayback'
     let elementx = document.createElement("div")
@@ -254,7 +275,7 @@ function start() {
     }
     stopwatchInterval =setInterval( function () {
         game.timeInMs = game.timeInMs + 100 ;
-        document.getElementById('watch').innerHTML = stopwatchToString();
+        document.getElementById('watch').innerHTML = stopwatchToString(game.timeInMs);
     },deltaInMs);
 }
 
@@ -263,10 +284,10 @@ function stop() {
     stopwatchInterval = undefined ;
 }
 
-function stopwatchToString() {
-    const milliseconds = (game.timeInMs / 100) % 10;
-    const second = Math.floor((game.timeInMs / 1000) % 60);
-    const minutes = Math.floor(game.timeInMs / 1000 / 60);
+function stopwatchToString(time) {
+    const milliseconds = (time / 100) % 10;
+    const second = Math.floor((time / 1000) % 60);
+    const minutes = Math.floor(time / 1000 / 60);
 
     return `${minutes} : ${second} : ${milliseconds} `
 
